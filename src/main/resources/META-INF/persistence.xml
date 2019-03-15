@@ -2,17 +2,15 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
     <persistence-unit name="FineXSS">
-        <class>main.java.model.Comment</class>
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>xssderby</jta-data-source>
+        <class>model.Comment</class>
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
-            <property name="javax.persistence.jdbc.url"    value="jdbc:derby:/home/test/databases/simpleDb;create=true" />
-            <property name="javax.persistence.jdbc.user" value="username" />
-            <property name="javax.persistence.jdbc.password" value="password" />
+            <property name="eclipselink.target-database"
+                      value="org.eclipse.persistence.platform.database.DerbyPlatform"/>
             <property name="eclipselink.ddl-generation" value="create-tables" />
             <property name="eclipselink.ddl-generation.output-mode" value="database" />
+            <property name="eclipselink.logging.parameters" value="false" />
         </properties>
     </persistence-unit>
-
-
-
 </persistence>

@@ -1,7 +1,9 @@
 package controller;
 
+import dao.CommentDAO;
 import model.Comment;
 
+import javax.ejb.EJB;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,17 +11,22 @@ import java.util.List;
 
 public class IndexServlet extends javax.servlet.http.HttpServlet {
 
-    private List<Comment> commentList = new ArrayList<>();
+
+    @EJB
+    CommentDAO commentDAO;
+
 
     protected void doPost(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
        String title = request.getParameter("title");
         String content = request.getParameter("content");
-        commentList.add(new Comment(title,content));
-        response.sendRedirect("/unsafe-webapp");
+        commentDAO.add(new Comment(title,content));
+        System.out.println("lol??s");
+        System.out.println("lol??s");
+        response.sendRedirect("");
     }
 
     protected void doGet(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response) throws javax.servlet.ServletException, IOException {
-        request.setAttribute("comments", commentList);
+        request.setAttribute("comments", commentDAO.getComments());
         request.getRequestDispatcher("WEB-INF/index.jsp").forward(request, response);
     }
 }
